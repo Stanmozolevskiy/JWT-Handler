@@ -1,0 +1,24 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/JWT Handler",
+      "sslPort": 0
+    },
+    "iisExpress": {
+      "applicationUrl": "http://localhost:55458/",
+      "sslPort": 44377
+    }
+  },
+  "profiles": {
+    "JWT Handler": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "home/aha",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
