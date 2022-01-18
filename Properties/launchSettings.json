@@ -15,7 +15,6 @@
     "JWT Handler": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "home/aha",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

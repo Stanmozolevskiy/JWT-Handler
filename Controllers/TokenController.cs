@@ -16,14 +16,14 @@ namespace JWT_Handler.Controllers
 		public async Task<IActionResult> GenerateTokne([FromBody] Token token)
 		{
 			await Task.Yield();
-			return Ok(TokenFactory.Create(token.Role, token.UserId, token.Lifetime, token.Email, token.FirstName, token.LastName));
+			return Ok(TokenFactory.Create(token.Role, token.UserId, token.Intent, token.Lifetime, token.Email, token.FirstName, token.LastName));
 		}
 
 		[HttpPost("decode")]
-		public async Task<IActionResult> DecodeToken([FromBody] TokenTuple token)
+		public async Task<IActionResult> DecodeToken([FromBody] TokenRequest token)
 		{
 			await Task.Yield();
-			IEnumerable<Claim> claims = TokenFactory.GetClaims(TokenFactory.GetToken(token.SecurityToken));
+			IEnumerable<Claim> claims = TokenFactory.GetClaims(TokenFactory.GetToken(token.token));
 			return Ok(new Token()
 			{
 				Email = claims.SingleOrDefault(c => c.Type == ClaimTypes.Email)?.Value,
@@ -31,13 +31,19 @@ namespace JWT_Handler.Controllers
 				LastName = claims.SingleOrDefault(c => c.Type == ClaimTypes.Surname)?.Value,
 				UserId = long.Parse(claims.SingleOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value),
 				Role = claims.SingleOrDefault(c => c.Type == ClaimTypes.Role)?.Value,
-				Lifetime = TokenFactory.GetTokenLifetime(token.SecurityToken).Minutes
+				Intent = long.Parse(claims.SingleOrDefault(c => c.Type == "Intent")?.Value),
+				Lifetime = TokenFactory.GetTokenLifetime(token.token).Minutes
 			});
 		}
 	}
 
+	public class TokenRequest
+    {
+		public string token { get; set; }
+    }
 	public class Token
 	{
+		public long Intent {get; set;}
 		public string Role { get; set; }
 		public long UserId { get; set; }
 		public string Email { get; set; }

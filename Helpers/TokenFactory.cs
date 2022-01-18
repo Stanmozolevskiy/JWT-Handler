@@ -9,7 +9,7 @@ namespace JWT_Handler.Helpers
 {
     public class TokenFactory
     {
-		public static string Create(string role, long userId, long lifetime, string email, string firstName, string lasetName)
+		public static string Create(string role, long userId,long intent, long lifetime, string email, string firstName, string lasetName)
 		{
 			const string Subject = "Subject";
 			const string Issuer = "Issuer";
@@ -20,7 +20,8 @@ namespace JWT_Handler.Helpers
 				new Claim(ClaimTypes.Role, role),
 				new Claim(ClaimTypes.Email , email),
 				new Claim(ClaimTypes.Surname , lasetName),
-				new Claim(ClaimTypes.GivenName , firstName)
+				new Claim(ClaimTypes.GivenName , firstName),
+				new Claim("Intent" , Convert.ToString(intent))
 			};
 			return JWT.CreateToken(Subject, Issuer, Audience, TimeSpan.FromMinutes(lifetime), claims).SecurityToken;
 		}

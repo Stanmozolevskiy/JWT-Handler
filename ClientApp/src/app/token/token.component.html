@@ -1,0 +1,104 @@
+<div>
+    <div class="header">
+        <h3 class="d-inline-block mr-3">Token Tools</h3>
+    </div>
+    <kendo-tabstrip>
+        <kendo-tabstrip-tab title="Decode Login Token">
+            <ng-template kendoTabContent>
+                <form [formGroup]="decodedTokenForm" (ngSubmit)="onDecodeLoginToken()">
+                    <dl class="form">
+                        <dt> Login Token:</dt>
+                        <dd>
+                            <kendo-textbox formControlName="Token" [clearButton]="true" [style.width]="'30%'"
+                                [showSuccessIcon]="'initial'" [showErrorIcon]="'initial'">
+                            </kendo-textbox>
+                            <br />
+                            <br />
+                        </dd>
+                        <dd><button kendoButton type="submit"> Decode</button></dd>
+                    </dl>
+                </form>
+
+                <dl *ngIf="decodedToken">
+                  <dt>Tenatn ID:</dt>
+                  <dd>{{decodedToken.Role}}</dd>
+                  <dt>User ID:</dt>
+                  <dd>{{decodedToken.UserId}}</dd>
+                  <dt>Email:</dt>
+                  <dd>{{decodedToken.Email}}</dd>
+                  <dt>First Name:</dt>
+                  <dd>{{decodedToken.FirstName}}</dd>
+                  <dt>Last Namee:</dt>
+                  <dd>{{decodedToken.LastName}}</dd>
+                  <dt>Lifetime (minutes):</dt>
+                  <dd>{{decodedToken.Lifetime}}</dd>
+                  <dt>Intent </dt>
+                  <dd>{{decodedIntent}}</dd>
+                </dl>
+            </ng-template>
+        </kendo-tabstrip-tab>
+
+        <kendo-tabstrip-tab title="Generate Login Token" [selected]="true">
+            <ng-template kendoTabContent>
+                <form [formGroup]="tokenForm" class="form" (ngSubmit)="onGenerateLoginToken()">
+                  <dl>
+                    <dt>
+                      Intent:
+                    </dt>
+                    <dd>
+                      <kendo-dropdownlist formControlName="Intent" [data]='intent' textField="text" valueField="value" [style.width]="'20%'"></kendo-dropdownlist>
+                    </dd>
+                    <dt>
+                      Role:
+                    </dt>
+                    <dd>
+                      <kendo-textbox formControlName="Role"  placeholder="Please type user Role..." [style.width]="'30%'"></kendo-textbox>
+                    </dd>
+                    <dt>
+                      User ID:
+                    </dt>
+                    <dd>
+                      <kendo-numerictextbox formControlName="UserId"  placeholder="UserId" [style.width]="'30%'"[spinners]="false"></kendo-numerictextbox>
+                    </dd>
+                    <dt>
+                      Email:
+                    </dt>
+                    <dd>
+                      <kendo-textbox formControlName="Email" placeholder="Please type your email..." [style.width]="'30%'"[showSuccessIcon]="'initial'" [showErrorIcon]="'initial'"></kendo-textbox>
+                    </dd>
+                    <dt>
+                      First Name:
+                    </dt>
+                    <dd>
+                      <kendo-textbox formControlName="FirstName" placeholder="Please type your first name..."  [style.width]="'30%'"[showSuccessIcon]="'initial'" [showErrorIcon]="'initial'"></kendo-textbox>
+                    </dd>
+                    <dt>
+                      Last Name:
+                    </dt>
+                    <dd>
+                      <kendo-textbox formControlName="LastName" placeholder="Please type your first name..." [style.width]="'30%'"[showSuccessIcon]="'initial'" [showErrorIcon]="'initial'"></kendo-textbox>
+                    </dd>
+                    <dt>
+                      Lifetime (minutes):
+                    </dt>
+                    <dd>
+                      <kendo-numerictextbox formControlName="Lifetime" placeholder="Please type token lifetime in minutes" [style.width]="'30%'" [spinners]="false"></kendo-numerictextbox>
+                      <br />
+                      <br />
+                    </dd>
+                    <dd>
+                      <button kendoButton type="submit">Generate</button>
+                    </dd>
+                  </dl>
+                </form>
+                <dl>
+                    <dd *ngIf="token">
+                        <div class="break-token">{{token}}</div>
+                    </dd>
+                </dl>
+            </ng-template>
+        </kendo-tabstrip-tab>
+
+
+    </kendo-tabstrip>
+</div>
