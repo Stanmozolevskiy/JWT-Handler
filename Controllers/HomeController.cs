@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace JWT_Handler.Controllers
+namespace Utility.Controllers
 {
     [Route("[controller]"), ApiController, AllowAnonymous]
     public class HomeController : ControllerBase

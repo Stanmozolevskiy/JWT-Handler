@@ -5,7 +5,7 @@ using System.Security.Claims;
 using static MyLibraries.JWT;
 using Microsoft.Extensions.Configuration;
 
-namespace JWT_Handler.Helpers
+namespace Utility.Helpers
 {
     public class TokenHelper
 	{

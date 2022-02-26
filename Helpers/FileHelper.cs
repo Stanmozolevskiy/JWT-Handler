@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Firebase.Storage;
 using Microsoft.Extensions.Configuration;
 
-namespace JWT_Handler.Helpers
+namespace Utility.Helpers
 {
     public static class FileHelper
 	{

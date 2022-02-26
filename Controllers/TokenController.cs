@@ -1,4 +1,4 @@
-﻿using JWT_Handler.Helpers;
+﻿using Utility.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using static MyLibraries.JWT;
 
-namespace JWT_Handler.Controllers
+namespace Utility.Controllers
 {
     [Route("[controller]"), ApiController, AllowAnonymous]
     public class TokenController: ControllerBase

@@ -10,7 +10,7 @@ using System.Net;
 using Microsoft.Extensions.Configuration;
 using Firebase.Auth;
 
-namespace JWT_Handler.Controllers
+namespace Utility.Controllers
 {
     [Route("[controller]"), ApiController, AllowAnonymous]
     public class SMSController : ControllerBase

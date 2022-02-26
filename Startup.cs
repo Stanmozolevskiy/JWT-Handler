@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 
-namespace JWT_Handler
+namespace Utility
 {
     public class Startup
     {

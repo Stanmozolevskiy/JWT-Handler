@@ -1,4 +1,4 @@
-﻿namespace JWT_Handler.Helpers
+﻿namespace Utility.Helpers
 {
     internal class Taks<T>
     {

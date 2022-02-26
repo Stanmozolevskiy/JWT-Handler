@@ -8,11 +8,11 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["nuget.config", "."]
-COPY ["JWT-Handler.csproj", "."]
-RUN dotnet restore "./JWT-Handler.csproj"
+COPY ["Utility.csproj", "."]
+RUN dotnet restore "./Utility.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "JWT-Handler.csproj" -c Release -o /app/build
+RUN dotnet build "Utility.csproj" -c Release -o /app/build
 RUN apt-get update && \
     apt-get install -y wget && \
     apt-get install -y gnupg2 && \
@@ -20,9 +20,9 @@ RUN apt-get update && \
     apt-get install -y build-essential nodejs
 
 FROM build AS publish
-RUN dotnet publish "JWT-Handler.csproj" -c Release -o /app/publish
+RUN dotnet publish "Utility.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "JWT-Handler.dll"]
+ENTRYPOINT ["dotnet", "Utility.dll"]

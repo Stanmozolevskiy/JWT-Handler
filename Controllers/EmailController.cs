@@ -8,7 +8,7 @@ using System.Linq;
 using System;
 using Microsoft.Extensions.Configuration;
 
-namespace JWT_Handler.Controllers
+namespace Utility.Controllers
 {
     [Route("[controller]"), ApiController, AllowAnonymous]
     public class EmailController: ControllerBase
