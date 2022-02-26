@@ -17,10 +17,7 @@ export class TokenComponent implements OnInit {
   decodedIntent!: string;
 
   constructor(private dataService: DataService, private fb: FormBuilder) { }
-
-  
   ngOnInit(): void {
-    console.log("Loaded");
     this.tokenForm = this.fb.group({
         Intent: [this.intent],
         Role: ['', [Validators.required]],

@@ -3,13 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using static MyLibraries.JWT;
-
+using Microsoft.Extensions.Configuration;
 
 namespace JWT_Handler.Helpers
 {
-    public class TokenFactory
-    {
-		public static string Create(string role, long userId,long intent, long lifetime, string email, string firstName, string lasetName)
+    public class TokenHelper
+	{
+       
+		public static string Create(string role, long userId, long intent, long lifetime, string email, string firstName, string lasetName)
 		{
 			const string Subject = "Subject";
 			const string Issuer = "Issuer";
@@ -26,9 +27,10 @@ namespace JWT_Handler.Helpers
 			return JWT.CreateToken(Subject, Issuer, Audience, TimeSpan.FromMinutes(lifetime), claims).SecurityToken;
 		}
 
-		public static IEnumerable<Claim> GetClaims( TokenTuple token)=> JWT.GetClaims(token);
-		public static TokenTuple GetToken(string token)=> JWT.GetToken(token);
-		public static TimeSpan GetTokenLifetime(string token)=> JWT.GetLifetime(token);
-        
+		public static IEnumerable<Claim> GetClaims(TokenTuple token) => JWT.GetClaims(token);
+		public static TokenTuple GetToken(string token) => JWT.GetToken(token);
+		public static TimeSpan GetTokenLifetime(string token) => JWT.GetLifetime(token);
+
 	}
+
 }

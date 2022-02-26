@@ -1,0 +1,59 @@
+<div>
+    <div class="header">
+        <h3 class="d-inline-block mr-3">Email Tools</h3>
+    </div>
+<kendo-tabstrip>
+<kendo-tabstrip-tab title="Send Email" [selected]="true">
+    <ng-template kendoTabContent>
+        <form [formGroup]="emailForm" class="form" (ngSubmit)="onSubmit()">
+            <dl>
+            <dt>
+                To:
+            </dt>
+            <dd>
+                <kendo-textbox formControlName="To" multiple  placeholder="e.g. myname@example.net" [style.width]="'90%'"></kendo-textbox>
+            </dd>
+            <dt>
+                Сс:
+            </dt>
+            <dd>
+                <kendo-textbox formControlName="Cc" multiple  placeholder="optional" [style.width]="'90%'"></kendo-textbox>
+            </dd>
+           
+            <dt>
+               Subject:
+            </dt>
+            <dd>
+                <kendo-textbox formControlName="Subject" [style.width]="'90%'" ></kendo-textbox>
+            </dd>
+            <dt>
+               Message:
+            </dt>
+            <dd>
+                <kendo-textarea formControlName="Message" placeholder="Please type your first message..." [rows]="5" [cols]="124" ></kendo-textarea>
+            </dd>
+            <dt>
+               Attachments:
+            </dt>
+            <dd>
+                <kendo-upload *ngIf="!emailSent" 
+                onRemove={onRemove}
+                [saveUrl]="uploadSaveUrl" [removeUrl]="uploadRemoveUrl" 
+                [style.width]="'40%'" ></kendo-upload>
+                <br />
+                <br />
+            </dd>
+            <dd>
+                <button *ngIf="!emailSent" [disabled]="emailForm.disabled || !(emailForm.dirty && emailForm.valid)" kendoButton type="submit">Send</button>
+            </dd>
+            <dd>
+                <div class="form-group" *ngIf="emailSent">
+                    <label><strong>Thank you for your email, give use some time to reply.</strong></label>
+                </div>
+            </dd>
+            </dl>
+        </form>
+  </ng-template>
+</kendo-tabstrip-tab>
+</kendo-tabstrip>
+</div>

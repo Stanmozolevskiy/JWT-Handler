@@ -1,23 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TokenComponent } from './token.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EmailComponent } from './email.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { IconsModule } from '@progress/kendo-angular-icons';
 import { InputsModule } from '@progress/kendo-angular-inputs';
 import { IndicatorsModule } from '@progress/kendo-angular-indicators';
 import { DialogsModule } from '@progress/kendo-angular-dialog';
 import { LayoutModule } from '@progress/kendo-angular-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LabelModule } from '@progress/kendo-angular-label';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
-
-
+import { UploadsModule } from '@progress/kendo-angular-upload';
 
 @NgModule({
   declarations: [
-    TokenComponent
+    EmailComponent
   ],
   imports: [
     CommonModule,
@@ -30,8 +29,10 @@ import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
     LayoutModule,
     ReactiveFormsModule,
     FormsModule,
+    DropDownsModule,
+    LabelModule,
     BrowserAnimationsModule,
-    DropDownsModule
+    UploadsModule
   ]
 })
-export class TokenModule { }
+export class EmailModule { }
