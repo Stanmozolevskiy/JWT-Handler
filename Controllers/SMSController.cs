@@ -26,21 +26,16 @@ namespace Utility.Controllers
 		public async Task<IActionResult> SaveAttachment(List<IFormFile> files)
 		{
 			foreach (IFormFile file in files)
-				Helpers.FileHelper.CopyFileLocally(file.OpenReadStream(),
+				await Helpers.FileHelper.CopyFileLocally(file.OpenReadStream(),
 					$"{System.IO.Directory.CreateDirectory("Attachments").Name}/{file.FileName}");
-			await Task.Yield();
+
 			return Ok();
 		}
-
 
 		[HttpPost("rempveAttachment")]
-		public async Task<IActionResult> RempveAttachment(IFormCollection fileNames)
-		{
-			Helpers.FileHelper.DeleteFileLocally(fileNames["fileNames"].Single());
-			await Task.Yield();
-			return Ok();
-		}
-
+		public async Task<IActionResult> RempveAttachment(IFormCollection fileNames)=>
+			Ok(await Helpers.FileHelper.DeleteFileLocally(fileNames["fileNames"].Single()));
+		
 		[HttpPost("send")]
         public async Task<IActionResult> SendSMS(SMSMessage sms)
         {
@@ -48,13 +43,14 @@ namespace Utility.Controllers
 
             TwilioClient.Init(accountSid, authToken);
 			sms.MediaUrl = await Helpers.FileHelper.UploadAttachmentsToFirebase(configuration, firebaseAuthLink);
-            try
+            
+			try
             {
-			await MyLibraries.SMS.Send(new NetworkCredential(accountSid, authToken, configuration["Settings:Tvilio:domain"]), sms);
+				await SMS.Send(new NetworkCredential(accountSid, authToken, configuration["Settings:Tvilio:domain"]), sms);
             }
 			finally
 			{
-			 Helpers.FileHelper.CleanAttachmentsFoldre(configuration, firebaseAuthLink);
+				await Helpers.FileHelper.CleanAttachmentsFoldre(configuration, firebaseAuthLink);
 			}
 
 			return Ok();
@@ -62,14 +58,12 @@ namespace Utility.Controllers
 
 		[HttpGet]
 		public async Task<IActionResult> GetAccounts()
-        
 		{
 			await Task.Yield();
-			return Ok(MyLibraries.SMS.GetAccounts(new NetworkCredential(accountSid, authToken, configuration["Settings:Tvilio:domain"])));
+			return Ok(SMS.GetAccounts(new NetworkCredential(accountSid, authToken, configuration["Settings:Tvilio:domain"])));
         }
 
 		
-
 		private readonly string accountSid;
 		private readonly string authToken;
 		private readonly IConfiguration configuration;
@@ -78,5 +72,4 @@ namespace Utility.Controllers
 				configuration["Settings:Firebase:authEmail"], configuration["Settings:Firebase:authPassword"]);
 
 	}
-
 }

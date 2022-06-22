@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using static MyLibraries.JWT;
-using Microsoft.Extensions.Configuration;
 
 namespace Utility.Helpers
 {

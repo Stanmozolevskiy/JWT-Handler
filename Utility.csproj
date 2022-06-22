@@ -10,7 +10,7 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
-    <RootNamespace>JWT_Handler</RootNamespace>
+    <RootNamespace>Utility</RootNamespace>
     <ApplicationIcon />
     <OutputType>Exe</OutputType>
     <StartupObject></StartupObject>
@@ -32,13 +32,21 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="DataModels\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="DataModels\**" />
+    <EmbeddedResource Remove="DataModels\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="DataModels\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Attachments\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="DataModels\DataModels.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

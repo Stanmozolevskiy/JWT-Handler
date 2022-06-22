@@ -7,6 +7,7 @@ using MyLibraries;
 using System.Linq;
 using System;
 using Microsoft.Extensions.Configuration;
+using DataModels;
 
 namespace Utility.Controllers
 {
@@ -22,22 +23,17 @@ namespace Utility.Controllers
         public async Task<IActionResult> SaveAttachment(List<IFormFile> files)
         {
             foreach (IFormFile file in files)
-                Helpers.FileHelper.CopyFileLocally(file.OpenReadStream(), 
+              await Helpers.FileHelper.CopyFileLocally(file.OpenReadStream(), 
                     $"{System.IO.Directory.CreateDirectory("Attachments").Name}/{file.FileName}");
             
-           await Task.Yield();
            return Ok(); 
         }
 
 
         [HttpPost("rempveAttachment")]
-        public async Task<IActionResult> RempveAttachment(IFormCollection fileNames)
-        {
-
-			Helpers.FileHelper.DeleteFileLocally(fileNames["fileNames"].Single());
-			await Task.Yield();
-			return Ok();
-        }
+        public async Task<IActionResult> RempveAttachment(IFormCollection fileNames)=>
+             Ok(await Helpers.FileHelper.DeleteFileLocally(fileNames["fileNames"].Single()));
+        
 
         [HttpPost("send")]
         public async Task<IActionResult> SendEmail(EmailMessage email)
@@ -45,17 +41,17 @@ namespace Utility.Controllers
             string[] recipience = null;
             string[] cc = null;
 
-            if (!String.IsNullOrEmpty(email.To))
+            if (!string.IsNullOrEmpty(email.To))
                 recipience = email.To?.Split(",");
             
-            if (!String.IsNullOrEmpty(email.Cc))
+            if (!string.IsNullOrEmpty(email.Cc))
                     cc = email.Cc?.Split(",");
 
             try
             {
-			await Email.Send(configuration["Settings:SendGrid:apiKey"], email.Subject, email.Message, Helpers.FileHelper.GetAttachments(), 
+                await Email.Send(configuration["Settings:SendGrid:apiKey"], email.Subject, email.Message, await Helpers.FileHelper.GetAttachments(), 
                 configuration["Settings:SendGrid:originEmail"], null, recipience, cc, null);
-			return Ok(Response);
+			    return Ok(Response);
             }
             catch(Exception e)
             {
@@ -63,17 +59,9 @@ namespace Utility.Controllers
             }
             finally
             {
-                Helpers.FileHelper.CleanAttachmentsFoldre();
+                await Helpers.FileHelper.CleanAttachmentsFoldre();
             }
         }
         private IConfiguration configuration;
-    }
-
-    public class EmailMessage
-    {
-        public string To;
-        public string Cc;
-        public string Subject;
-        public string Message;
     }
 }

@@ -53,7 +53,7 @@ export class SmsComponent implements OnInit, HttpInterceptor {
     this.updateGrid();
     this.smsForm = this.fb.group({
       Body: ['',[Validators.required]],
-      Recipients: ["", [Validators.required]]
+      Recipients: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('[0-9]+')]]
   });
   }
 
