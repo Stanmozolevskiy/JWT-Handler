@@ -1,5 +1,6 @@
-﻿# Deploy to Heroku with Docker
+- **Make sure to not push API key or accounts will be blocked**
 
+# Deploy to Heroku with Docker
 
 Runt the following commands in the terminal with **adnim rights** in the root folder
 
