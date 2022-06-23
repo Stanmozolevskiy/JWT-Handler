@@ -1,4 +1,4 @@
-- **Make sure to not push API key or accounts will be blocked**
+# Make sure to not push API key or accounts will be blocked
 
 # Deploy to Heroku with Docker
 
